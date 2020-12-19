@@ -9,3 +9,9 @@ black
 yapf
 python-gitlab
 twine
+
+matplotlib
+seaborn
+requests
+ipdb
+bs4
