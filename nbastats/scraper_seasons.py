@@ -8,6 +8,8 @@ import ipdb
 from bs4 import BeautifulSoup
 
 
+COMPETITIONS = ['nba', 'ncaa', 'jleague', 'international']
+
 SEASONS = range(2005, 2021)
 
 STATS_BASIC = ['Id', 'Player', 'Link', 'Competition', 'Team', 'Season', 'GP', 'MIN']
@@ -160,7 +162,7 @@ def scrape_data(df, competition, season, universe, stype):
                 player_id = int(info[1].find('a', href=True)['href'].split("/")[-1])
 
                 if stype == 'Totals':
-                    row_data = get_totals('nba', season, info)
+                    row_data = get_totals(competition, season, info)
                     df = df.append(row_data, ignore_index=True)
 
                 elif stype == 'Misc_Stats':
@@ -209,7 +211,7 @@ def scrape_run(competition='nba', universe='All', totals=True, misc_stats=True, 
 def save_raw_data(df, filename):
     ''' Save to raw_data folder '''
 
-    path = 'raw_data/{filename}.csv'
+    path = f'raw_data/{filename}.csv'
     df.to_csv(path, index=False)
     print('Saved!')
 
